@@ -1,0 +1,62 @@
+一、确认代码路径和docker image名称：
+
+    1， docker-django 目录在服务器上的位置为 ： /root/docker-django
+
+    2，通过docker-makefile生成的web image名称为： z1987:web
+
+    3，通过docker-makefile生成的mysql image名称为： z1987:mysql
+
+    4, 通过docker-makefile生成的nginx image名称为： z1987:nginx
+
+
+二、创建docker network，用于后续创建的3个docker容器之间的通讯
+
+    docker network create z1987-net
+
+
+三、依次创建MySQL、web、nginx的docker容器：
+
+
+    1，创建mysql容器
+
+docker run \
+    --name z1987_mysql \
+    -d \
+    -v /root/docker-django/project_files/mysql_data/:/var/lib/mysql/ \
+    -e MYSQL_ROOT_PASSWORD="root" \
+    --restart=always \
+    --network z1987-net \
+    --network-alias z1987_mysql \
+    z1987:mysql
+
+
+    2，创建web容器
+
+docker run \
+    --name z1987_web \
+    -d \
+    -v /root/docker-django/:/root/docker-django/ \
+    -v /root/docker-django/packages/python3/dist-packages/:/usr/lib/python3/dist-packages/ \
+    -v /root/docker-django/packages/python3.5/dist-packages/:/usr/local/lib/python3.5/dist-packages/ \
+    --restart=always \
+    --privileged=true \
+    --network z1987-net \
+    --network-alias z1987_web \
+    z1987:web
+
+
+    3， 创建nginx容器
+
+docker run \
+    --name z1987_nginx \
+    -d \
+    -v /root/docker-django/project_files/log/nginx/:/var/log/nginx/ \
+    -v /root/docker-django/project_files/conf/nginx/conf.d/:/etc/nginx/conf.d/ \
+    -p 30080:80 \
+    --restart=always \
+    --privileged=true \
+    --network z1987-net \
+    --network-alias z1987_nginx \
+    z1987:nginx
+
+    注： z1987_nginx创建之前，需要确保：（1）自定义网络 z1987-net 已创建 （2）web容器 z1987_web 已创建，并已加入自定义网络 z1987-net 中

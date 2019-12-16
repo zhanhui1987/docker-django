@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block subtitle %}
+  || 博客
+{% endblock %}
+
+{% block css %}
+    <style type="text/css">
+        pre {
+            white-space:pre-wrap;
+            word-wrap:break-word;
+        }
+        #content {
+            font-size:18px;
+        }   
+        #title {
+            font-size:23px;
+        }
+        #search_submit {
+            width: 100px;
+            height: 30px;
+            font-size: 18px;
+            background: blue;
+            color: #ff0;
+        }
+        #search_input{
+            width:40%;
+            height: 30px;
+            border-radius: 7px;
+        }
+        .search_field {
+            text-align: center;
+        }
+        .around_search_field {
+            height: 10px;
+        }
+        .hr {
+            height: 1px;
+            border: none;
+            border-top: 1px dashed #0066CC;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="blog_content">
+        <div class="around_search_field"></div>
+        <div class="search_field">
+            <form action="{% url 'blog' %}">
+                <input id="search_input" type="text" name="search_field" placeholder="请输入搜索内容" value="{{ search_field }}">
+                <input id="search_submit" type="submit" value="搜索">
+                <input name="size" type="hidden" value={{ page_info.page_size }}>
+            </form>
+        </div>
+        <div class="around_search_field"></div>
+        <div><hr class="hr"></div>
+        <div>
+            {% if results %}
+                {% for row in results %}
+                    <h3 id="title">
+                        {% if row.blog_md5 %}
+                            <a href="{% url 'blog_detail' row.blog_md5 %}">{{ row.title }}</a>
+                        {% else %}
+                            {{ row.title }}
+                        {% endif %}
+                    </h3>
+                    <pre id="content">{{ row.content }}</pre>
+                    {% if not forloop.last %}
+                        <hr>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                没有相关博客～
+            {% endif %}
+        </div>
+    </div>
+
+    {% include "page.html" %}
+{% endblock %}

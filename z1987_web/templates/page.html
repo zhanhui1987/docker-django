@@ -1,0 +1,39 @@
+{% if page_info %}
+    <br>
+    <div align="center">
+        {# 循环页码列表，将其中所有的页码进行展示 #}
+        {% if page_info.total_count and page_info.max_page_no > 1 %}
+            <form action="">
+                {% for page in page_info.page_list %}
+                    <span style="margin-right: 10px;">
+                    {# 若有跳转链接，则将其设置为跳转的样式 #}
+                        {% if page.page_url %}
+                            <a href="{{ page.page_url }}">
+                        {% endif %}
+
+                        {# 若有page_show，则显示page_show，否则显示page_no #}
+                        {% if page.page_show %}
+                            {{ page.page_show }}
+                        {% else %}
+                            {{ page.page_no }}
+                        {% endif %}
+
+                        {# 配置上面处理标签a #}
+                        {% if page.page_url %}
+                            </a>
+                        {% endif %}
+                    </span>
+                {% endfor %}
+
+                <span style="margin-left: 20px;">
+                    跳转至第<input id="jump_input" type="text" name="page" placeholder="" value="{{ page_info.current_page_no }}"> / {{ page_info.max_page_no }} 页
+                    <input id="jump_submit" type="submit" value="跳转">
+                    <input name="size" type="hidden" value={{ page_info.page_size }}>
+                </span>
+                <span style="margin-left: 20px;">
+                    当前页数据量/数据总数： {{ page_info.current_page_data_count }} / {{ page_info.total_count }}
+                </span>
+            </form>
+        {% endif %}
+    </div>
+{% endif %}

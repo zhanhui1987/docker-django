@@ -1,2 +1,2 @@
-# docker-django
-使用docker进行django后端服务的快速部署。
+尝试使用docker来处理web服务器快速部署的问题。
+

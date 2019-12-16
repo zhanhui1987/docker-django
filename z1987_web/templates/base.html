@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+<!--    <link rel="shortcut icon" type="image/png" href="{% static 'image/favicon.ico' %}"/>-->
+    <title>{% block title %}千里目{% block subtitle %} || 更上一层楼{% endblock %}{% endblock %}</title>
+    {% block css %}{% endblock %}
+
+    <!--definition base css-->
+    <style type="text/css">
+        .base_content {
+            background:#e0ffe2;
+            width:1125px;
+            margin:20px auto 0px;
+        }
+        .header_content {
+            width:1125px;
+            margin:20px auto 0px;
+        }
+        a {
+            text-decoration:none;
+            color:#30F;
+        }
+        a:hover {
+            text-decoration:underline;
+            color:#30F;
+        }
+        a:visited {
+            text-decoration:underline;
+            color:#9400D3;
+        }
+        #search_submit {
+            width: 100px;
+            height: 30px;
+            font-size: 18px;
+            background: blue;
+            color: #ff0;
+        }
+        #search_input{
+            width: 40%;
+            height: 30px;
+            border-radius: 7px;
+        }
+        #jump_submit {
+            width: 40px;
+            height: 30px;
+            font-size: 9px;
+            background: blue;
+            color: #ff0;
+        }
+        #jump_input{
+            text-align: center;
+            width: 30px;
+            height: 20px;
+            border-radius: 7px;
+        }
+        .search_field {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="base_content">
+        {% block content %}{% endblock %}
+    </div>
+    {% include "footer.html" %}
+</body>
+</html>

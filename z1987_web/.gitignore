@@ -1,0 +1,13 @@
+**/*.py~
+
+**/*.pyc
+
+*.*~
+
+**/migrations/*
+
+django/*/*/__pycache__/*
+
+**/*.swp
+
+**/*.idea/*

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% if blog.title %}
+    {% block title %}
+        {{ blog.title }}
+    {% endblock %}
+{% endif %}
+
+{% block css %}
+    <style type="text/css">
+        pre {
+            white-space:pre-wrap;
+            word-wrap:break-word;
+        }
+        #content {
+            font-size:18px;
+        }
+        #title {
+            font-size:23px;
+        }
+        #refer_div {
+            margin:0px auto auto 20px;
+        }
+        .blog_detail_title {
+            text-align:center;
+        }
+        .blog_detail_summary {
+            text-align:center;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% if refer %}
+        <div id="refer_div"><a href="{{ refer }}">返回上一页</a></div>
+    {% endif %}
+    {% if blog %}
+        <div class="blog_detail_title">
+            <h3 id="title">{{ blog.title }}</h3>
+        </div>
+        <div class="blog_detail_summary">
+            {% if blog.author_name %}
+                <span>{{ blog.author_name }}  发表于：{{ blog.dt_created }}</span>
+            {% endif %}
+            <span>阅读：{{ blog.browse_count }}</span>
+            <span>点赞：{{ blog.like_count }}</span>
+        </div>
+        <hr>
+        <div class="blog_detail_content">
+            <pre id="content">{{ blog.content }}</pre>
+            {% if blog.reference_url_list %}
+                <hr>
+                <div><b>参考链接：</b></div>
+                {% for reference_url in blog.reference_url_list %}
+                    <div><a href="{{ reference_url }}" target="_blank">{{ reference_url }}</a></div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% else %}
+        <div>没有相关博客~</div>
+    {% endif %}
+{% endblock %}
