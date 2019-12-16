@@ -1,0 +1,15 @@
+创建镜像前提条件：
+
+    docker-django项目在服务器上的路径为： /root/docker-django/，这种情况下下面的各个创建命令可以在任何目录下运行。
+
+1， 创建nginx镜像：
+
+    docker build -t z1987:nginx /root/docker-django/docker/makefile/nginx/
+
+2， 创建web镜像：
+
+    docker build -t z1987:web /root/docker-django/docker/makefile/web/
+
+3， 创建mysql镜像：
+
+    docker build -t z1987:mysql /root/docker-django/docker/makefile/mysql5.7/
