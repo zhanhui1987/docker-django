@@ -24,6 +24,9 @@ RUN apt-get autoclean \
 # make the docker container work
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
+# rm nginx default conf file
+RUN rm -rf /etc/nginx/sites-enabled/default
+
 EXPOSE 80 443
 
 ENTRYPOINT /usr/sbin/nginx
