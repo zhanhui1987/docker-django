@@ -138,12 +138,11 @@ def _increase_browse_count(request, blog_obj):
     """
 
     if isinstance(blog_obj, Blog):
-        # 获取访问者ip和id
-        visitor_user_id = _get_visitor_id(request)
+        # 获取访问者ip
         visitor_ip = _get_visitor_ip(request)
 
         # 确认信息有效性
-        if visitor_ip or visitor_user_id:
+        if visitor_ip:
             # 将blog浏览量+1
             blog_obj.browse_count += 1
             blog_obj.save()
@@ -151,7 +150,6 @@ def _increase_browse_count(request, blog_obj):
             # 保存博客浏览情况
             blog_browse_obj = BlogBrowse()
             blog_browse_obj.blog = blog_obj
-            blog_browse_obj.user_id = visitor_user_id
             blog_browse_obj.user_ip = visitor_ip
             blog_browse_obj.save()
 
@@ -181,23 +179,6 @@ def _get_visitor_ip(request):
         user_ip = ""
 
     return user_ip
-
-
-def _get_visitor_id(request):
-    """
-    获取访问者id
-    :param request:
-    :return:
-    """
-
-    del request
-
-    user_id = 0
-
-    if not isinstance(user_id, int):
-        user_id = 0
-
-    return user_id
 
 
 def _process_reference_url(url):
