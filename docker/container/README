@@ -37,7 +37,7 @@ docker run \
     -d \
     -v /root/docker-django/:/root/docker-django/ \
     -v /root/docker-django/packages/python3/dist-packages/:/usr/lib/python3/dist-packages/ \
-    -v /root/docker-django/packages/python3.5/dist-packages/:/usr/local/lib/python3.5/dist-packages/ \
+    -v /root/docker-django/packages/python3.6/dist-packages/:/usr/local/lib/python3.6/dist-packages/ \
     --restart=always \
     --privileged=true \
     --network z1987-net \

@@ -41,12 +41,12 @@ RUN \
     apt-get -y update \
     && apt-get install -y vim
 
-# install python3.5、python3-pip、uwsgi
+# install python3.6、python3-pip、uwsgi
 RUN \
     apt-get -y update \
-    && apt-get install -y python3.5 \
-    && ln -s /usr/bin/python3.5 /usr/bin/python \
-    && ln -s /usr/bin/python3.5 /usr/bin/python3 \
+    && apt-get install -y python3.6 \
+    && ln -s /usr/bin/python3.6 /usr/bin/python \
+    && ln -s /usr/bin/python3.6 /usr/bin/python3 \
     && apt-get install -y python3-pip \
     && python3 -m pip install -U pip \
     && pip3 install uwsgi==2.0.18
