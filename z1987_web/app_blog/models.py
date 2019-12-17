@@ -26,7 +26,7 @@ class Blog(models.Model):
     blog_md5 = models.CharField(max_length=32, db_index=True, blank=False, null=False, unique=True,
                                 verbose_name="博客MD5值")
 
-    show_type = models.CharField(max_length=10, default="internal", db_index=True, choices=SHOW_TYPE_CHOICE,
+    show_type = models.CharField(max_length=10, default="external", db_index=True, choices=SHOW_TYPE_CHOICE,
                                  verbose_name="是否对外发布")
 
     title = models.CharField(max_length=255, null=False, blank=False, verbose_name="博客标题")
