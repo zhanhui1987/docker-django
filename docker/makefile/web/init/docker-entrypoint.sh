@@ -31,4 +31,3 @@ fi
 
 # create a process that cannot be ended
 tail -f /dev/null
-

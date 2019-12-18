@@ -7,4 +7,4 @@ LC_ALL="C.UTF-8"
 
 # 进程监控脚本
 
-* * * * * /usr/bin/python3.5 /root/docker-django/z1987_web/sysadmin/cron/process_monitor.py >> /root/docker-django/project_files/log/cron/process_monitor.log 2>&1 &
+* * * * * /usr/bin/python3.6 /root/docker-django/z1987_web/sysadmin/cron/process_monitor.py >> /root/docker-django/project_files/log/cron/process_monitor.log 2>&1 &
