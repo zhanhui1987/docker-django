@@ -1,4 +1,4 @@
-一、确认代码路径和docker image名称：
+一、创建容器前提条件：
 
     1， docker-django 目录在服务器上的位置为 ： /root/docker-django
 
