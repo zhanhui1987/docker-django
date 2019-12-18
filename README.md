@@ -43,7 +43,7 @@
 
         git clone git@github.com:zhanhui1987/docker-django.git /root/docker-django/
 
-        ![拉取基础镜像](https://github.com/zhanhui1987/docker-django/blob/master/project_files/.dd-img/4.%20%E6%8B%89%E5%8F%96%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8F.png)
+        ![拉取基础镜像](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/project_files/.dd-img/4.%20%E6%8B%89%E5%8F%96%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8F.png)
 
     （2）拉取基础镜像（ubuntu:16.04和mysql:5.7）：
 
