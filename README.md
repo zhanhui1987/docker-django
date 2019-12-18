@@ -10,6 +10,7 @@
     （2）将django后端服务，划分为三个部分：代理（nginx）、数据库（mysql）、web服务（python+django+uwsgi）。
 
         按照这个思路，生成相应的三个docker image： z1987_nginx、z1987_mysql、z1987_web。
+        ![]()
 
     （3）三个容器之间，使用 docker network 进行相互间的通讯，仅将 z1987_nginx 容器的某个端口（示例中是 30080）暴露出来。
 
@@ -34,18 +35,22 @@
     REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
     ubuntu              16.04               56bab49eef2e        3 weeks ago         123MB
     mysql               5.7                 1e4405fe1ea9        3 weeks ago         437MB
-
+    ![]()
 
 4，操作流程
 
-    （1）使用git，将本仓库clone到root目录下，例如：
+    （1）使用git，将本仓库clone到root目录下：
 
         git clone git@github.com:zhanhui1987/docker-django.git /root/docker-django/
+
+        ![]()
 
     （2）拉取基础镜像（ubuntu:16.04和mysql:5.7）：
 
         docker pull ubuntu:16.04
         docker pull mysql:5.7
+
+        ![]()
 
         注：需确保这两个基础镜像的 IMAGE ID 和3中相应的IMAGE ID相同。
 
@@ -55,9 +60,11 @@
 
         root@bbb70:~# docker images
         REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-        z1987               mysql               ec99611492c9        2 hours ago         437MB
-        z1987               web                 4b17696a0386        2 hours ago         651MB
-        z1987               nginx               ed8a71920403        2 hours ago         255MB
+        z1987               web                 fd8ed2ef0be3        9 minutes ago       651MB
+        z1987               mysql               ec99611492c9        3 hours ago         437MB
+        z1987               nginx               ed8a71920403        4 hours ago         255MB
+
+        ![]()
 
     （4）创建项目的三个容器：
 
@@ -67,49 +74,69 @@
         NETWORK ID          NAME                DRIVER              SCOPE
         958e3efd8635        z1987-net           bridge              local
 
+        ![]()
+
         root@bbb70:~# docker ps -a
         CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                              NAMES
-        29b3258f1766        z1987:nginx         "/bin/sh -c /usr/sbi…"   13 seconds ago      Up 11 seconds       443/tcp, 0.0.0.0:30080->80/tcp     z1987_nginx
-        5ea42970ca26        z1987:web           "docker-entrypoint.sh"   21 seconds ago      Up 19 seconds                                          z1987_web
-        20cf610eb9dd        z1987:mysql         "docker-entrypoint.s…"   29 seconds ago      Up 28 seconds       3306/tcp, 33060/tcp                z1987_mysql
+        a2b90122c70a        z1987:nginx         "/bin/sh -c /usr/sbi…"   12 minutes ago      Up 12 minutes       443/tcp, 0.0.0.0:30080->80/tcp     z1987_nginx
+        b69188c154c9        z1987:web           "docker-entrypoint.sh"   12 minutes ago      Up 12 minutes                                          z1987_web
+        6c0ad04f72e8        z1987:mysql         "docker-entrypoint.s…"   12 minutes ago      Up 12 minutes       3306/tcp, 33060/tcp                z1987_mysql
 
-    （5）通过服务器的30080端口，对web页面进行访问：
+        ![]()
 
-        web页面：  127.0.0.1:30080
-        管理员页面：  127.0.0.1:30080/admin
+    （5）通过服务器的30080端口，对web页面进行访问（示例中，项目部署在 z1987.com 对应的服务器上。测试时可以将该域名更换为实际IP）：
 
-        初始化管理账号为： admin/admin
+        web页面：  z1987.com:30080
 
-        可以通过管理员页面 用户 二级页面，对管理账号进行编辑；通过 博客 二级页面，添加新的博客。
+        ![]()
 
+        管理员页面：  z1987.com:30080/admin， 使用默认的超级管理员：  admin / admin 登录：
+
+        ![]()
+
+        可以通过管理员页面 用户 二级页面，对管理账号进行编辑
+
+        ![]()
+
+        通过 博客 二级页面，添加新的博客。
+
+        ![]()
+        ![]()
 
 5，FAQ
 
-    （1）代码结构解析：
+    （1）项目目录解析：
 
-        root@bbb70:~# ls -lrt docker-django/
-        total 20
-        -rw-r--r-- 1 root root   68 Dec 16 19:58 README.md
+        root@bbb70:~# ls -lrt docker-django
+        total 28
         drwxr-xr-x 7 root root 4096 Dec 16 19:58 z1987_web
         drwxr-xr-x 4 root root 4096 Dec 16 20:17 docker
         drwxr-xr-x 6 root root 4096 Dec 17 17:54 project_files
         drwxr-xr-x 4 root root 4096 Dec 18 00:19 packages
+        -rw-r--r-- 1 root root 8392 Dec 18 14:06 README.md
 
-        仓库跟目录下有一个说明文件（README.md）、四个文件夹。
+        ![]()
 
-        这四个文件夹的作用如下：
 
-        z1987_web：      django项目代码
+        仓库根目录下有一个说明文件（README.md）、四个文件夹：
 
-        docker：         保存镜像和容器创建相关的内容，例如 Dockerfile、容器创建命令等
+        z1987_web：     django项目代码
+        ![]()
 
-        project_files:   保存项目相关的文件，例如容器中的日志文件（nginx日志、uwsgi日志等，对应logs文件夹）、mysql数据库文件（对应mysql_data文件夹）、配置文件（mysql、nginx等，对应 conf文件夹）。在运行docker容器时，会将这些文件挂载到相应容器的对应路径。
+        docker：        保存镜像和容器创建相关的内容，例如 Dockerfile、容器创建命令等
+        ![]()
 
-        packages：       保存django项目涉及到的python包，在创建 z1987_web 容器时，会将这些包的路径挂载到容器对应的python路径下，确保django项目涉及到的python包均能正确加载。
+        project_files:  保存项目相关的文件，例如容器中的日志文件（logs文件夹：nginx日志、uwsgi日志等）、mysql数据库文件（mysql_data文件夹）、配置文件（conf文件夹：mysql、nginx等）。
+                        在运行docker容器时，会将这些文件挂载到相应容器的对应路径。
+        ![]()
+
+        packages：      保存django项目涉及到的python包，在创建 z1987_web 容器时，会将这些包的路径挂载到容器对应的python路径下，确保django项目涉及到的python包均能正确加载。
+        ![]()
 
     （2）因项目涉及到的文件，均保存在宿主机、挂载到docker容器，因此当需要对某个文件进行更改时，只需要在宿主机对其进行更改，并重启对应的docker容器即可使其生效：
 
         docker restart 容器名/容器ID
+        ![]()
 
     （3）进入docker容器的方法：
 
@@ -117,19 +144,20 @@
 
         docker exec -it 容器名/容器ID bash
 
-        例如，本项目中，需要进入 z1987_web 进行某些操作，可以这样来进入：
-
         docker exece -it z1987_web bash
+        ![]()
 
         注：命令最后的bash（或 /bin/bash ）不可缺少，意思是进入容器并执行 bash 命令。
 
     （4）后端服务镜像（z1987_web）中，集成了同步数据库、创建超级管理员（admin）的功能。当 新建容器/容器重启 时，均会执行。
 
         代码位置：  /root/docker-django/docker/makefile/web/init/docker-entrypoint.sh
+        ![]()
 
     （5）数据库镜像（z1987_mysql）中，集成了初始化user、database的功能。当 新建容器 时，会执行：
 
         代码位置：  /root/docker-django/docker/makefile/mysql5.7/init/init.sql
+        ![]()
 
         django项目中使用到的mysql用户和库，均在这个文件中进行初始化。
 
