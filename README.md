@@ -35,7 +35,7 @@
     REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
     ubuntu              16.04               56bab49eef2e        3 weeks ago         123MB
     mysql               5.7                 1e4405fe1ea9        3 weeks ago         437MB
-    ![]()
+    ![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/project_files/.dd-img/1.base_image.png)
 
 4，操作流程
 
