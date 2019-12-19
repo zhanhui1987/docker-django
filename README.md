@@ -45,7 +45,7 @@
 
         git clone git@github.com:zhanhui1987/docker-django.git /root/docker-django/
 
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/0.git_clone.png)
+![](http://qiniu.z1987.com/0.git_clone.png)
 
     （2）拉取基础镜像（ubuntu:16.04和mysql:5.7）：
 
