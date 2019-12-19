@@ -11,7 +11,7 @@
 
         按照这个思路，生成相应的三个docker image： z1987_nginx、z1987_mysql、z1987_web。
 
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/20.overall_framework.png)
+![](http://qiniu.z1987.com/20.overall_framework.png)
 
     （3）容器之间使用 docker network 进行内部通讯，仅将nginx容器的某个端口（示例中是30080）暴露出来，用于接受外部访问。
 
@@ -36,7 +36,7 @@
     REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
     ubuntu              16.04               56bab49eef2e        3 weeks ago         123MB
     mysql               5.7                 1e4405fe1ea9        3 weeks ago         437MB
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/1.base_image.png)
+![](http://qiniu.z1987.com/1.base_image.png)
 
 
 4，操作流程
@@ -52,7 +52,7 @@
         docker pull ubuntu:16.04
         docker pull mysql:5.7
 
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/2.pull_base_image.png)
+![](http://qiniu.z1987.com/2.pull_base_image.png)
 
         注：需确保这两个基础镜像的 IMAGE ID 和3中相应的IMAGE ID相同。
 
@@ -66,7 +66,7 @@
         z1987        mysql   ec99611492c9    3 hours ago      437MB
         z1987        nginx   ed8a71920403    4 hours ago      255MB
 
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/3.generate_customer_image.png)
+![](http://qiniu.z1987.com/3.generate_customer_image.png)
 
     （4）创建项目的三个容器：
 
@@ -76,30 +76,30 @@
         NETWORK ID          NAME                DRIVER              SCOPE
         958e3efd8635        z1987-net           bridge              local
 
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/4.ls_docker_network.png)
+![](http://qiniu.z1987.com/4.ls_docker_network.png)
 
         root@bbb70:~# docker ps -a
 
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/5.running_docker_container.png)
+![](http://qiniu.z1987.com/5.running_docker_container.png)
 
     （5）通过服务器的30080端口，对web页面进行访问（示例中，项目部署在z1987.com服务器上，因此使用该域名进行访问）：
 
         web页面：  z1987.com:30080
 
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/6.web.png)
+![](http://qiniu.z1987.com/6.web.png)
 
         管理员页面：  z1987.com:30080/admin， 使用默认的超级管理员：  admin / admin 登录：
 
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/7.admin_login.png)
+![](http://qiniu.z1987.com/7.admin_login.png)
 
         可以通过管理员页面 用户 二级页面，对管理账号进行编辑
 
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/8.admin.png)
+![](http://qiniu.z1987.com/8.admin.png)
 
         通过 博客 二级页面，添加新的博客。
 
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/9.blog.png)
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/10.add_blog.png)
+![](http://qiniu.z1987.com/9.blog.png)
+![](http://qiniu.z1987.com/10.add_blog.png)
 
 
 5， 数据初始化
@@ -114,7 +114,7 @@
 
         代码位置： /root/docker-django/docker/makefile/web/init/docker-entrypoint.sh
 
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/18.init_mysql_table.png)
+![](http://qiniu.z1987.com/18.init_mysql_table.png)
 
     （2）mysql的库（database）、用户（user）
 
@@ -124,7 +124,7 @@
 
         代码位置：  /root/docker-django/docker/makefile/mysql5.7/init/init.sql
 
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/19.init_mysql_database.png)
+![](http://qiniu.z1987.com/19.init_mysql_database.png)
 
     （3）初始化的各账号信息
 
@@ -161,30 +161,30 @@
         drwxr-xr-x 4 root root 4096 Dec 18 00:19 packages
         -rw-r--r-- 1 root root 8392 Dec 18 14:06 README.md
 
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/11.code_structure.png)
+![](http://qiniu.z1987.com/11.code_structure.png)
 
         仓库根目录下有一个说明文件（README.md）、四个文件夹：
 
         z1987_web：     django项目代码
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/12.web_code_folder.png)
+![](http://qiniu.z1987.com/12.web_code_folder.png)
 
         docker：        保存镜像和容器创建相关的内容，例如 Dockerfile、容器创建命令等
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/13.docker_folder.png)
+![](http://qiniu.z1987.com/13.docker_folder.png)
 
         project_files:  保存项目相关的文件，例如容器中的日志文件（logs文件夹：nginx日志、uwsgi日志等）、
                         mysql数据库文件（mysql_data文件夹）、配置文件（conf文件夹：mysql、nginx等）。
                         在运行docker容器时，会将这些文件挂载到相应容器的对应路径。
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/15.project_files_folder.png)
+![](http://qiniu.z1987.com/15.project_files_folder.png)
 
         packages：      保存django项目涉及到的python包，在创建 z1987_web 容器时，会将这些包的路径挂载到
                         容器对应的python路径下，确保django项目涉及到的python包均能正确加载。
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/14.packages_folder.png)
+![](http://qiniu.z1987.com/14.packages_folder.png)
 
     （2）项目涉及到的文件，均保存在宿主机、挂载到docker容器。因此只需要在宿主机对文件进行更改，重启相应docker容器即可
         使其生效：
 
         docker restart 容器名/容器ID
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/16.restart_container.png)
+![](http://qiniu.z1987.com/16.restart_container.png)
 
     （3）进入docker容器的方法：
 
@@ -193,7 +193,7 @@
         命令：  docker exec -it 容器名/容器ID bash
 
         示例：  docker exece -it z1987_web bash
-![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/17.exec_container.png)
+![](http://qiniu.z1987.com/17.exec_container.png)
 
         注：命令最后的bash（或 /bin/bash ）不可缺少，意思是进入容器并执行 bash 命令。
 
