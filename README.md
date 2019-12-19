@@ -180,7 +180,8 @@
                         容器对应的python路径下，确保django项目涉及到的python包均能正确加载。
 ![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/14.packages_folder.png)
 
-    （2）项目涉及到的文件，均保存在宿主机、挂载到docker容器。因此只需要在宿主机对文件进行更改，重启相应docker容器即可使其生效：
+    （2）项目涉及到的文件，均保存在宿主机、挂载到docker容器。因此只需要在宿主机对文件进行更改，重启相应docker容器即可
+        使其生效：
 
         docker restart 容器名/容器ID
 ![](https://raw.githubusercontent.com/zhanhui1987/docker-django/master/dd-img/16.restart_container.png)
